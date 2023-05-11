@@ -1,10 +1,14 @@
-import 'package:fliker/src/pages/home_page.dart';
-import 'package:fliker/src/providers/chat_provider.dart';
+import 'package:fliker/layouts/general_layout.dart';
+import 'package:fliker/router/router.dart';
+import 'package:fliker/providers/chat_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  Flurorouter.configureRoutes();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -19,9 +23,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
-        home: const HommePage(),
+        title: 'Filker',
+        initialRoute: '/',
+        onGenerateRoute: Flurorouter.router.generator,
+        builder: (context, child) {
+          return GeneralLayout(child: child!);
+        },
         scrollBehavior: MyCustomScrollBehavior(),
+        // theme: ThemeData.dark(),
       ),
     );
   }

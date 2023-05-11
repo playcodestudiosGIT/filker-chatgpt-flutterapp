@@ -1,5 +1,5 @@
 import 'package:fliker/constants/generales.dart';
-import 'package:fliker/src/widgets/cards/tarjeta_tools_home.dart';
+import 'package:fliker/widgets/cards/tarjeta_tools_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

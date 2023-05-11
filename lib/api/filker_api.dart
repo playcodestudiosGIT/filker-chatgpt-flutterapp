@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:fliker/constants/generales.dart';
-import 'package:fliker/src/models/models_model.dart';
-import 'package:fliker/src/models/response_model.dart';
+import 'package:fliker/models/models_model.dart';
+import 'package:fliker/models/response_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 

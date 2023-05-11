@@ -32,7 +32,7 @@ class CardHome extends StatelessWidget {
                 Container(
                     margin: const EdgeInsets.all(10),
                     width: double.infinity,
-                    height: 310,
+                    height: 290,
                     child: ClipRRect(
                         borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                         child: Image(
@@ -44,7 +44,7 @@ class CardHome extends StatelessWidget {
                   bottom: 10,
                   child: Container(
                     padding: const EdgeInsets.only(left: 10),
-                    width: (wSize < 450) ? 280 : 340,
+                    width: (wSize < 450) ? 280 : 290,
                     height: 30,
                     color: Colors.white,
                     child: Text(

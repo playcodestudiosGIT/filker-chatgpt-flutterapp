@@ -1,5 +1,6 @@
-import 'package:fliker/src/api/filker_api.dart';
 import 'package:flutter/material.dart';
+
+import '../api/filker_api.dart';
 
 class ChatProvider extends ChangeNotifier {
   List<dynamic> _models = [];

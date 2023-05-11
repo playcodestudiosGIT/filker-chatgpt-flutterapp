@@ -1,51 +1,15 @@
-import 'package:fliker/src/pages/sections/logos_section.dart';
-import 'package:fliker/src/pages/sections/tools_section.dart';
-import 'package:fliker/src/widgets/botones/darkmode_button.dart';
-import 'package:fliker/src/widgets/botones/login_button.dart';
-import 'package:fliker/src/widgets/botones/share_button.dart';
-import 'package:fliker/src/widgets/suscribe_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/generales.dart';
-import '../widgets/vertical_divider_appbar.dart';
-import 'sections/argumento_test.dart';
+import '../widgets/suscribe_bar.dart';
+import 'home/argumento_test.dart';
+import 'home/logos_section.dart';
+import 'home/tools_section.dart';
 
-class HommePage extends StatelessWidget {
-  const HommePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 6,
-        backgroundColor: const Color(0xFFF1F1F1),
-        title: Padding(
-          padding: (size.width > 445) ? const EdgeInsets.only(left: 30) : const EdgeInsets.only(left: 0),
-          child: const Image(
-            image: AssetImage('images/logo.png'),
-            width: 100,
-          ),
-        ),
-        actions: [
-          const DarkModeButton(),
-          const SizedBox(width: 10),
-          const ShareButton(),
-          const SizedBox(width: 10),
-          const VerticalDividerAppbar(),
-          const SizedBox(width: 10),
-          const LoginButton(text: 'Log in'),
-          if (size.width > 445) const SizedBox(width: 40)
-        ],
-      ),
-      body: const _MyBody(),
-    );
-  }
-}
-
-class _MyBody extends StatelessWidget {
-  const _MyBody();
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

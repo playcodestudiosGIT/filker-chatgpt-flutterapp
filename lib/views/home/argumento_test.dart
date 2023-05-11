@@ -1,10 +1,10 @@
 import 'package:fliker/constants/generales.dart';
-import 'package:fliker/src/providers/chat_provider.dart';
-import 'package:fliker/src/widgets/botones/login_button.dart';
-import 'package:fliker/src/widgets/cards/card_wheel_home.dart';
+import 'package:fliker/providers/chat_provider.dart';
+import 'package:fliker/widgets/botones/action_button.dart';
+import 'package:fliker/widgets/botones/login_button.dart';
+import 'package:fliker/widgets/cards/card_wheel_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:list_wheel_scroll_view_nls/list_wheel_scroll_view_nls.dart';
 import 'package:provider/provider.dart';
 
 class ArgumentoTest extends StatefulWidget {
@@ -49,42 +49,49 @@ class _ArgumentoTestState extends State<ArgumentoTest> {
           height: 20,
         ),
         Container(
+          width: double.infinity,
           alignment: Alignment.center,
-          constraints: const BoxConstraints(maxWidth: 800, minWidth: 400, minHeight: 300, maxHeight: 500),
-          child: ListWheelScrollViewX(
-            controller: _controller,
-            overAndUnderCenterOpacity: 0.3,
-            diameterRatio: 20,
-            // onSelectedItemChanged: (value) => print(value),
+          constraints: const BoxConstraints(minWidth: 400, minHeight: 300, maxHeight: 500),
+          child: ListView(
             scrollDirection: Axis.horizontal,
-            itemExtent: (wSize < 450) ? 340 : 400,
-            perspective: 0.008,
-            offAxisFraction: 1,
+            shrinkWrap: true,
             children: const [
-              CardHome(
-                  title: 'THE WINNER BEAR',
-                  sinopsis: 'Erase una vez un oso que no podía surfear, gano la competenicia!',
-                  generoDuracion: 'INFANTIL - 5 MIN',
-                  nombre: 'Johny E.',
-                  baner: AssetImage('/images/foto2.png'),
-                  profile: AssetImage('/images/avatar.png'),
-                  ausp: AssetImage('/images/toys.png')),
-              CardHome(
-                  title: 'POR UNAS LATAS',
-                  sinopsis: 'Esta espumante historia se sale de control cuando inesperadamente estan envueltos en latozas situaciones!',
-                  generoDuracion: 'INFANTIL - 5 MIN',
-                  nombre: 'Johny E.',
-                  baner: AssetImage('/images/foto1.png'),
-                  profile: AssetImage('/images/avatar.png'),
-                  ausp: AssetImage('/images/cocacola.png')),
-              CardHome(
-                  title: 'EN TUS ZAPATOS',
-                  sinopsis: 'Todo sacrificio tiene su recompensa, ahora Mick tiene que ganarse su lugar!',
-                  generoDuracion: 'INFANTIL - 5 MIN',
-                  nombre: 'Johny E.',
-                  baner: AssetImage('/images/foto3.png'),
-                  profile: AssetImage('/images/avatar.png'),
-                  ausp: AssetImage('/images/reebook.png')),
+              SizedBox(
+                width: 350,
+                height: 220,
+                child: CardHome(
+                    title: 'THE WINNER BEAR',
+                    sinopsis: 'Erase una vez un oso que no podía surfear, gano la competenicia!',
+                    generoDuracion: 'INFANTIL - 5 MIN',
+                    nombre: 'Johny E.',
+                    baner: AssetImage('/images/foto2.png'),
+                    profile: AssetImage('/images/avatar.png'),
+                    ausp: AssetImage('/images/toys.png')),
+              ),
+              SizedBox(
+                width: 350,
+                height: 240,
+                child: CardHome(
+                    title: 'POR UNAS LATAS',
+                    sinopsis: 'Esta espumante historia se sale de control cuando inesperadamente estan envueltos en latozas situaciones!',
+                    generoDuracion: 'INFANTIL - 5 MIN',
+                    nombre: 'Johny E.',
+                    baner: AssetImage('/images/foto1.png'),
+                    profile: AssetImage('/images/avatar.png'),
+                    ausp: AssetImage('/images/cocacola.png')),
+              ),
+              SizedBox(
+                width: 350,
+                height: 220,
+                child: CardHome(
+                    title: 'EN TUS ZAPATOS',
+                    sinopsis: 'Todo sacrificio tiene su recompensa, ahora Mick tiene que ganarse su lugar!',
+                    generoDuracion: 'INFANTIL - 5 MIN',
+                    nombre: 'Johny E.',
+                    baner: AssetImage('/images/foto3.png'),
+                    profile: AssetImage('/images/avatar.png'),
+                    ausp: AssetImage('/images/reebook.png')),
+              ),
             ],
           ),
         )
@@ -149,7 +156,10 @@ class _Response extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const LoginButton(text: 'Registrar'),
+              LoginButton(
+                text: 'Registrar',
+                onPressed: () {},
+              ),
               const SizedBox(width: 10),
             ],
           )
@@ -181,17 +191,12 @@ class _ArgumentoState extends State<_Argumento> {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+            margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
             child: TextFormField(
+                style: const TextStyle(color: Colors.black54),
                 maxLines: 4,
-                // readOnly: true
-                decoration: InputDecoration(
-                    label: Text(
-                      'Genera una sinopsis con mínimo 30 palabras...',
-                      style: GoogleFonts.poppins(color: const Color(0XFFC9C9C9)),
-                    ),
-                    fillColor: Colors.white,
-                    border: const OutlineInputBorder(borderSide: BorderSide.none)),
+                decoration: Generales.ipdec(
+                    'Escribe aquí lo que quieres contar yo generaré una sinopsis de tu historia, puedes incluir lugares, nombres o darme poco detalles que yo creare algo para ti.'),
                 controller: chatProvider.controller,
                 onChanged: (value) {
                   Provider.of<ChatProvider>(context, listen: false).message = value;
@@ -199,25 +204,17 @@ class _ArgumentoState extends State<_Argumento> {
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Row(
               children: [
                 DecoratedBox(
-                  decoration: ShapeDecoration(
-                    color: Generales.pColor.withOpacity(0.3),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1.0, style: BorderStyle.solid, color: Generales.pColor),
-                      borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                    ),
-                  ),
+                  decoration: Generales.myCustomShapeDec(),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     width: 125,
+                    height: 35,
                     child: DropdownButton(
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: Generales.pColor,
-                      ),
+                      icon: Icon(Icons.arrow_drop_down, color: Generales.pColor),
                       isExpanded: true,
                       style: GoogleFonts.mulish(color: Generales.pColor),
                       underline: Container(),
@@ -238,35 +235,9 @@ class _ArgumentoState extends State<_Argumento> {
                 ),
                 const Spacer(),
                 !chatProvider.isLoading
-                    ? MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () => chatProvider.sendReqAsync(),
-                          child: SizedBox(
-                            height: 45,
-                            width: 130,
-                            child: DecoratedBox(
-                              decoration: ShapeDecoration(
-                                color: Generales.pColor,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(width: 1.0, style: BorderStyle.solid, color: Generales.pColor),
-                                  borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-                                ),
-                              ),
-                              child: Container(
-                                // padding: const EdgeInsets.all(20),
-                                child: Center(
-                                  child: Text(
-                                    'Generar',
-                                    style: GoogleFonts.mulish(color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                    ? ActionButton(
+                        text: 'Generar',
+                        onPressed: chatProvider.sendReqAsync) // chatProvider.sendReqAsync
                     : const SizedBox(width: 40, height: 40, child: CircularProgressIndicator())
               ],
             ),
@@ -276,6 +247,8 @@ class _ArgumentoState extends State<_Argumento> {
       ),
     );
   }
+
+  
 }
 
 class BotonAzul extends StatelessWidget {
