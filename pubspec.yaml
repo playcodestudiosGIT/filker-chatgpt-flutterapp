@@ -28,7 +28,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  awesome_icons: ^1.1.0
   cupertino_icons: ^1.0.2
+  dio: ^5.1.2
+  email_validator: ^2.1.17
   fluro: ^2.0.5
   flutter:
     sdk: flutter
@@ -37,6 +40,7 @@ dependencies:
   http: ^0.13.5
   list_wheel_scroll_view_nls: ^0.0.3
   provider: ^6.0.5
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

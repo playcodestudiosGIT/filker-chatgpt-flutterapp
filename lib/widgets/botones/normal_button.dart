@@ -1,10 +1,11 @@
+import 'package:fliker/constants/generales.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatelessWidget {
+class NormalButton extends StatelessWidget {
   final String text;
   final onPressed;
-  const LoginButton({super.key, required this.text, required this.onPressed});
+  const NormalButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +18,14 @@ class LoginButton extends StatelessWidget {
           margin: const EdgeInsets.all(10),
           width: 110,
           height: 35,
-          decoration: const BoxDecoration(
-              color: Color(0xFF7565FD),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(100),
-                topRight: Radius.circular(100),
-                bottomLeft: Radius.circular(100),
-              )),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              border: Border.fromBorderSide(BorderSide(style: BorderStyle.solid, color: Generales.pColor))
+            ),
           child: Text(
             text,
-            style: GoogleFonts.mulish(color: Colors.white),
+            style: GoogleFonts.mulish(color: Generales.pColor),
           ),
         ),
       ),

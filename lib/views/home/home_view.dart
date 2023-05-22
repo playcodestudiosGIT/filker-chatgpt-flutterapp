@@ -1,49 +1,50 @@
-
+import 'package:fliker/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants/generales.dart';
-import '../widgets/suscribe_bar.dart';
-import 'home/argumento_test.dart';
-import 'home/logos_section.dart';
-import 'home/tools_section.dart';
+import '../../../constants/generales.dart';
+import '../../providers/chat_provider.dart';
+import '../../widgets/suscribe_bar.dart';
+import 'argumento_test.dart';
+import 'logos_section.dart';
+import 'tools_section.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ChatProvider>(context, listen: false).indexArgumentGenerator = 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // final chatProvider = Provider.of<ChatProvider>(context);
-    final wSize = MediaQuery.of(context).size.width;
+    final authProvider = Provider.of<AuthProvider>(context);
     return ListView(
+      physics: const ClampingScrollPhysics(),
       children: [
-        Stack(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: double.infinity,
-              height: (wSize > 560) ? 1350 : 1350,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [
-                  Generales.pColor.withOpacity(0.1),
-                  Colors.transparent,
-                ]),
-              ),
-            ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SuscribeBar(),
-                _Titulos(),
-                ArgumentoTest(),
-                SizedBox(height: 40),
-                _AboutUs(),
-                SizedBox(height: 40),
-                ToolsSection(),
-                SizedBox(height: 100),
-                LogosSection(),
-                SizedBox(height: 200),
-              ],
-            ),
+            if (authProvider.authStatus != AuthStatus.authenticated)
+            const SuscribeBar(),
+            const _Titulos(),
+            const ArgumentoTest(),
+            const SizedBox(height: 40),
+            const _AboutUs(),
+            const SizedBox(height: 40),
+            const ToolsSection(),
+            const SizedBox(height: 100),
+            const LogosSection(),
+            const SizedBox(height: 200),
           ],
         )
       ],

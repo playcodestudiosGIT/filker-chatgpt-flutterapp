@@ -15,18 +15,22 @@ class ArgumentoTest extends StatefulWidget {
 }
 
 class _ArgumentoTestState extends State<ArgumentoTest> {
-  final FixedExtentScrollController _controller = FixedExtentScrollController(initialItem: 1);
   @override
   Widget build(BuildContext context) {
-    final wSize = MediaQuery.of(context).size.width;
     final chatProvider = Provider.of<ChatProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text(
+          'Genera rapidamente una sinopsis de tu historia.',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(color: const Color(0XFFA3A3A3), fontSize: 20, fontWeight: FontWeight.w300),
+        ),
         ConstrainedBox(
-          constraints: (chatProvider.indexArgumentGenerator == 0)
-              ? const BoxConstraints(maxWidth: 800, maxHeight: 230)
-              : const BoxConstraints(maxWidth: 800, maxHeight: 400),
+          constraints: BoxConstraints(
+            maxWidth: 800,
+            maxHeight: (chatProvider.indexArgumentGenerator == 0) ? 220 : 600,
+          ),
           child: PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: chatProvider.pageController,
@@ -51,26 +55,24 @@ class _ArgumentoTestState extends State<ArgumentoTest> {
         Container(
           width: double.infinity,
           alignment: Alignment.center,
-          constraints: const BoxConstraints(minWidth: 400, minHeight: 300, maxHeight: 500),
+          constraints: const BoxConstraints(minWidth: 400, minHeight: 450, maxHeight: 450),
           child: ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             children: const [
               SizedBox(
                 width: 350,
-                height: 220,
                 child: CardHome(
                     title: 'THE WINNER BEAR',
                     sinopsis: 'Erase una vez un oso que no podía surfear, gano la competenicia!',
                     generoDuracion: 'INFANTIL - 5 MIN',
-                    nombre: 'Johny E.',
+                    nombre: 'Andry T.',
                     baner: AssetImage('/images/foto2.png'),
                     profile: AssetImage('/images/avatar.png'),
                     ausp: AssetImage('/images/toys.png')),
               ),
               SizedBox(
                 width: 350,
-                height: 240,
                 child: CardHome(
                     title: 'POR UNAS LATAS',
                     sinopsis: 'Esta espumante historia se sale de control cuando inesperadamente estan envueltos en latozas situaciones!',
@@ -82,12 +84,11 @@ class _ArgumentoTestState extends State<ArgumentoTest> {
               ),
               SizedBox(
                 width: 350,
-                height: 220,
                 child: CardHome(
                     title: 'EN TUS ZAPATOS',
                     sinopsis: 'Todo sacrificio tiene su recompensa, ahora Mick tiene que ganarse su lugar!',
                     generoDuracion: 'INFANTIL - 5 MIN',
-                    nombre: 'Johny E.',
+                    nombre: 'Samuel L.',
                     baner: AssetImage('/images/foto3.png'),
                     profile: AssetImage('/images/avatar.png'),
                     ausp: AssetImage('/images/reebook.png')),
@@ -113,8 +114,7 @@ class _Response extends StatelessWidget {
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 300,
+          Expanded(
             child: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -126,18 +126,27 @@ class _Response extends StatelessWidget {
               ),
             ),
           ),
+          Text(
+            'Esta es una muestra de lo fácil y rápido que puedes evolucionar tu historia para llevarla a producción',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(color: Generales.pColor.withOpacity(0.3), fontSize: 14, fontWeight: FontWeight.w300),
+          ),
           Row(
             children: [
               const SizedBox(width: 10),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  chatProvider.like = !chatProvider.like;
+                },
                 icon: const Icon(Icons.thumb_up),
-                color: Generales.pColor.withOpacity(0.3),
+                color: (chatProvider.like) ? Generales.pColor : Generales.pColor.withOpacity(0.3),
               ),
               IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.thumb_down),
-                color: Generales.pColor.withOpacity(0.3),
+                onPressed: () {
+                  chatProvider.addlike = !chatProvider.addlike;
+                },
+                icon: const Icon(Icons.star),
+                color: (chatProvider.addlike) ? Colors.amber : Generales.pColor.withOpacity(0.3),
               ),
               const Spacer(),
               IconButton(
@@ -158,11 +167,11 @@ class _Response extends StatelessWidget {
               ),
               LoginButton(
                 text: 'Registrar',
-                onPressed: () {},
+                onPressed: () {}, // Ir a lista de espera
               ),
               const SizedBox(width: 10),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -193,10 +202,21 @@ class _ArgumentoState extends State<_Argumento> {
           Container(
             margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
             child: TextFormField(
+                // initialValue: chatProvider.message,
                 style: const TextStyle(color: Colors.black54),
                 maxLines: 4,
                 decoration: Generales.ipdec(
-                    'Escribe aquí lo que quieres contar yo generaré una sinopsis de tu historia, puedes incluir lugares, nombres o darme poco detalles que yo creare algo para ti.'),
+                    sufIcon: IconButton(
+                        onPressed: () {
+                          chatProvider.controller.clear();
+                        },
+                        icon: Icon(
+                          Icons.restart_alt_outlined,
+                          color: Generales.pColor.withOpacity(0.3),
+                        )),
+                    labelText: 'Sobre que quieres generar tu sinopsis.',
+                    hintText:
+                        'Escribe aquí lo que quieres contar, puedes incluir lugares, nombres o darme algunos detalles que yo generaré una sinopsis de tu historia.'),
                 controller: chatProvider.controller,
                 onChanged: (value) {
                   Provider.of<ChatProvider>(context, listen: false).message = value;
@@ -235,10 +255,8 @@ class _ArgumentoState extends State<_Argumento> {
                 ),
                 const Spacer(),
                 !chatProvider.isLoading
-                    ? ActionButton(
-                        text: 'Generar',
-                        onPressed: chatProvider.sendReqAsync) // chatProvider.sendReqAsync
-                    : const SizedBox(width: 40, height: 40, child: CircularProgressIndicator())
+                    ? ActionButton(text: 'Generar', onPressed: chatProvider.sendReqAsync) // chatProvider.sendReqAsync
+                    : const Center(child: SizedBox(width: 35, height: 35, child: CircularProgressIndicator()))
               ],
             ),
           ),
@@ -247,8 +265,6 @@ class _ArgumentoState extends State<_Argumento> {
       ),
     );
   }
-
-  
 }
 
 class BotonAzul extends StatelessWidget {

@@ -8,7 +8,7 @@ class ChatProvider extends ChangeNotifier {
 
   int _currentIndex = 1;
 
-  int _indexArgumentGenerator = 0;
+  int indexArgumentGenerator = 0;
 
   TextEditingController _controller = TextEditingController();
 
@@ -16,9 +16,28 @@ class ChatProvider extends ChangeNotifier {
   String _message = '';
   String _genero = 'Ficcion';
 
+  bool _like = false;
+  bool _addlike = false;
+
   bool _isLoading = false;
 
   PageController _pageController = PageController();
+
+
+  bool get addlike => _addlike;
+  
+  set addlike(bool value) {
+      _addlike = value;
+      notifyListeners();
+  }
+
+
+  bool get like => _like;
+  
+  set like(bool value) {
+      _like = value;
+      notifyListeners();
+  }
 
   PageController get pageController => _pageController;
 
@@ -84,10 +103,8 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  int get indexArgumentGenerator => _indexArgumentGenerator;
-
-  set indexArgumentGenerator(int value) {
-    _indexArgumentGenerator = value;
+  set setIndexArgumentGenerator(int value) {
+    indexArgumentGenerator = value;
     notifyListeners();
   }
 
@@ -97,6 +114,6 @@ class ChatProvider extends ChangeNotifier {
     _response = resp;
     isLoading = false;
     pageController.jumpToPage(1);
-    _indexArgumentGenerator = 1;
+    indexArgumentGenerator = 1;
   }
 }

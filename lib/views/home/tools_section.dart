@@ -1,6 +1,7 @@
 import 'package:fliker/constants/generales.dart';
 import 'package:fliker/widgets/cards/tarjeta_tools_home.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ToolsSection extends StatelessWidget {
@@ -35,28 +36,38 @@ class ToolsSection extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          height: 55,
-          width: 350,
-          child: DecoratedBox(
-              decoration: const ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(style: BorderStyle.none),
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                ),
+          width: double.infinity,
+          height: 80,
+          color:Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 350, maxHeight: 55),
+                // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                // height: 55,
+                // width: 350,
+                child: DecoratedBox(
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(style: BorderStyle.none),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      ),
+                    ),
+                    child: TextFormField(
+                      style: TextStyle(color: Generales.lightColorText),
+                      decoration: Generales.ipdec(
+                        labelText: 'Buscar herramienta',
+                        hintText: 'Que herramienta deseas buscar',
+                        icon: Icon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          color: Generales.pColor,
+                        ),
+                      ),
+                    )),
               ),
-              child: TextFormField(
-                style: TextStyle(color: Generales.lightColorText),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: const Image(
-                    image: AssetImage('/images/iconsearch.png'),
-                  ),
-                  hintStyle: TextStyle(color: Generales.lightColorText),
-                  hintText: 'Search',
-                ),
-              )),
+            ],
+          ),
         ),
         const SizedBox(height: 40),
         Container(

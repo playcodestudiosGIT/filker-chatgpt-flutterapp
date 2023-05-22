@@ -1,3 +1,4 @@
+import 'package:fliker/widgets/botones/suscribe_button.dart';
 import 'package:flutter/material.dart';
 
 class SuscribeBar extends StatelessWidget {
@@ -14,25 +15,15 @@ class SuscribeBar extends StatelessWidget {
         Color(0xFF7565FD),
         Color(0xFF55368C),
       ])),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
+          Text(
             'Comunidad de FILKERS',
             style: TextStyle(color: Colors.white),
           ),
-          const SizedBox(width: 15),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            child: const Text(
-              'Suscribir',
-              style: TextStyle(color: Color(0XFF55368C), fontSize: 12, fontWeight: FontWeight.bold),
-            ),
-          )
+          SizedBox(width: 15),
+          SuscribeButton()
         ],
       ),
     );

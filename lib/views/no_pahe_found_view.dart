@@ -7,11 +7,22 @@ const PageNotFoundScreen({super.key});
    @override
    Widget build(BuildContext context) {
       return Center(
-        child: Container(
-        child: Text('404 - Pagina no encontrada', style: GoogleFonts.montserratAlternates(
-          fontSize: 50,
-          fontWeight: FontWeight.bold
-        ),),
+        child: SizedBox(
+          width: 300,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Image(image: AssetImage('images/logo.png')),
+            const SizedBox(height: 15),
+            Text(
+              '404 - Pagina no encontrada',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.manrope(
+              fontSize: 30,
+              fontWeight: FontWeight.bold
+            ),),
+          ],
+        ),
         ),
       );
    }
